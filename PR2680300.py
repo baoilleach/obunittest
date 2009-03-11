@@ -4,7 +4,7 @@ import sweet
 
 
 class TestCase(sweet.TestCase):
-    """Regression Test for PR111111
+    """Regression Test for PR2680300
 
     557418.mol, when read from PDB has a
        C(OH)(=O)
