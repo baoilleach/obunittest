@@ -1,8 +1,6 @@
 import pybel
 import sweet
 
-
-
 class TestCase(sweet.TestCase):
     """Regression Test for PR2017902
 
@@ -121,6 +119,63 @@ class TestCase(sweet.TestCase):
  ('NC(=O)CC[C@H](N)C(O)=O', 'NC(=O)CC[C@H](N)C(=O)O'),
  ('NC(=O)CC[C@H](C(O)=O)N', 'NC(=O)CC[C@@H](N)C(=O)O'),
  ('NC(=O)CC[C@@H](C(O)=O)N', 'NC(=O)CC[C@H](N)C(=O)O')]
+        for smi, cansmi in smi_and_cansmi:
+            mol = pybel.readstring("smi", smi)
+            self.assertEqual(mol.write("can").split()[0],
+                             cansmi)
+
+    def testMoreStereo(self):
+        """Assert that OpenBabel can write out the correct stereochemistry
+        around a chiral atom, given various equivalent SMILES strings"""
+        smi_and_cansmi = [
+ ('Cl[C@](C)(I)Br', 'C[C@](Cl)(Br)I'),
+ ('Cl[C@@](C)(I)Br', 'C[C@@](Cl)(Br)I'),
+ ('I[C@](C)(Br)Cl', 'C[C@](Cl)(Br)I'),
+ ('I[C@@](C)(Br)Cl', 'C[C@@](Cl)(Br)I'),
+ ('I[C@@](Cl)(Br)C', 'C[C@](Cl)(Br)I'),
+ ('I[C@](Cl)(Br)C', 'C[C@@](Cl)(Br)I'),
+ ('Cl[C@@](Br)(I)C', 'C[C@](Cl)(Br)I'),
+ ('Cl[C@](Br)(I)C', 'C[C@@](Cl)(Br)I'),
+ ('Br[C@](C)(Cl)I', 'C[C@](Cl)(Br)I'),
+ ('Br[C@@](C)(Cl)I', 'C[C@@](Cl)(Br)I'),
+ ('I[C@@](C)(Cl)Br', 'C[C@](Cl)(Br)I'),
+ ('I[C@](C)(Cl)Br', 'C[C@@](Cl)(Br)I'),
+ ('C[C@@](Cl)(I)Br', 'C[C@](Cl)(Br)I'),
+ ('C[C@](Cl)(I)Br', 'C[C@@](Cl)(Br)I'),
+ ('C[C@@](Br)(Cl)I', 'C[C@](Cl)(Br)I'),
+ ('C[C@](Br)(Cl)I', 'C[C@@](Cl)(Br)I'),
+ ('I[C@](Br)(Cl)C', 'C[C@](Cl)(Br)I'),
+ ('I[C@@](Br)(Cl)C', 'C[C@@](Cl)(Br)I'),
+ ('Cl[C@@](C)(Br)I', 'C[C@](Cl)(Br)I'),
+ ('Cl[C@](C)(Br)I', 'C[C@@](Cl)(Br)I'),
+ ('Cl[C@](I)(Br)C', 'C[C@](Cl)(Br)I'),
+ ('Cl[C@@](I)(Br)C', 'C[C@@](Cl)(Br)I'),
+ ('C[C@@](I)(Br)Cl', 'C[C@](Cl)(Br)I'),
+ ('C[C@](I)(Br)Cl', 'C[C@@](Cl)(Br)I'),
+ ('I[C@](Cl)(C)Br', 'C[C@](Cl)(Br)I'),
+ ('I[C@@](Cl)(C)Br', 'C[C@@](Cl)(Br)I'),
+ ('C[C@](Cl)(Br)I', 'C[C@](Cl)(Br)I'),
+ ('C[C@@](Cl)(Br)I', 'C[C@@](Cl)(Br)I'),
+ ('Br[C@@](C)(I)Cl', 'C[C@](Cl)(Br)I'),
+ ('Br[C@](C)(I)Cl', 'C[C@@](Cl)(Br)I'),
+ ('I[C@@](Br)(C)Cl', 'C[C@](Cl)(Br)I'),
+ ('I[C@](Br)(C)Cl', 'C[C@@](Cl)(Br)I'),
+ ('C[C@](Br)(I)Cl', 'C[C@](Cl)(Br)I'),
+ ('C[C@@](Br)(I)Cl', 'C[C@@](Cl)(Br)I'),
+ ('C[C@](I)(Cl)Br', 'C[C@](Cl)(Br)I'),
+ ('C[C@@](I)(Cl)Br', 'C[C@@](Cl)(Br)I'),
+ ('Cl[C@@](I)(C)Br', 'C[C@](Cl)(Br)I'),
+ ('Cl[C@](I)(C)Br', 'C[C@@](Cl)(Br)I'),
+ ('Br[C@](I)(C)Cl', 'C[C@](Cl)(Br)I'),
+ ('Br[C@@](I)(C)Cl', 'C[C@@](Cl)(Br)I'),
+ ('Cl[C@](Br)(C)I', 'C[C@](Cl)(Br)I'),
+ ('Cl[C@@](Br)(C)I', 'C[C@@](Cl)(Br)I'),
+ ('Br[C@@](Cl)(C)I', 'C[C@](Cl)(Br)I'),
+ ('Br[C@](Cl)(C)I', 'C[C@@](Cl)(Br)I'),
+ ('Br[C@@](I)(Cl)C', 'C[C@](Cl)(Br)I'),
+ ('Br[C@](I)(Cl)C', 'C[C@@](Cl)(Br)I'),
+ ('Br[C@](Cl)(I)C', 'C[C@](Cl)(Br)I'),
+ ('Br[C@@](Cl)(I)C', 'C[C@@](Cl)(Br)I')]
         for smi, cansmi in smi_and_cansmi:
             mol = pybel.readstring("smi", smi)
             self.assertEqual(mol.write("can").split()[0],
