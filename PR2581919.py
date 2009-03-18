@@ -2,10 +2,10 @@ import pybel
 import sweet
 
 class TestCase(sweet.TestCase):
-    """Regression Test for PR2017902
+    """Regression Test for PR2581919
 
-    Internal atom typing error.
-    The first two atoms were assigned types of C+ instead of C2.
+    Stereochemistry in Canonical SMILES was simply being copied from
+    the original SMILES. This was incorrect 50% of the time.
     """
     def setUp(self):
         self.mol = pybel.readstring("smi", "C=CCc1ccccc1OCC(O)CNC(C)C")
