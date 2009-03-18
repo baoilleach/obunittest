@@ -4,8 +4,8 @@ import sweet
 class TestCase(sweet.TestCase):
     """Regression Test for PR1805910
 
-    Various errors relating to inversion of stereochemistry across Cansmiles
-    and InChI.
+    Various errors relating to inversion of stereochemistry across Smiles,
+    Cansmiles and InChI.
     """
     def setUp(self):
         self.smiles = [x.rstrip() for x in open("ProblemChiralitySMILES-2007-10-01.smi", "r").readlines()]
