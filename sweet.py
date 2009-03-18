@@ -61,6 +61,9 @@ class TestCase(unittest.TestCase):
         if not (second-error) < first < (second+error):
             raise self.failureException, (msg or '%r != %r (+-%r)' % (first,second,error))
 
+    def assertInList(self, item, mylist):
+        self.assertTrue(item in mylist, "Item %s not found in %s" % (item, mylist))
+
     def cont_assertEqual(self, a, b, c):
         """Replace an assertEqual with a cont_assertEqual to allow
         execution of additional tests in the same assertSameMol"""

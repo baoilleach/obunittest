@@ -89,8 +89,6 @@ class TestCase(sweet.TestCase):
            {'bo': 1},
            {'bo': 1},
            {'bo': 1}]}
-    def assertInList(self, item, mylist):
-        self.assertTrue(item in mylist, "Item %s not found in %s" % (item, mylist))
     def testIdentity(self):
         self.assertSameMol(self.mol, self.serialised)
     def testRoundTrip(self):
