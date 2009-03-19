@@ -8,7 +8,9 @@ class TestCase(sweet.TestCase):
     Cansmiles and InChI.
     """
     def setUp(self):
-        self.smiles = [x.rstrip() for x in open("ProblemChiralitySMILES-2007-10-01.smi", "r").readlines()]
+        self.smiles = [x.rstrip() for x in
+                       open("PR1805910_smilestestset.smi", "r").readlines()
+                       if not x.startswith("/*")]
         self.mols = [pybel.readstring("smi", x) for x in self.smiles]
 
 ##    def testIdentity(self):
