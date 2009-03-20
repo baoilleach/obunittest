@@ -199,6 +199,8 @@ if __name__ == "__main__":
         debug()
     else:
         pythonfiles = glob.glob("*.py")
+        if len(sys.argv) == 2 and sys.argv[1].endswith(".py"):
+            pythonfiles = [sys.argv[1]]
         testsuite = []
         testloader = unittest.TestLoader().loadTestsFromTestCase
         for pythonfile in pythonfiles:

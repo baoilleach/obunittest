@@ -10,7 +10,11 @@ class TestCase(sweet.TestCase):
     When read, OB was converting the carbonyl O to a H
     """
     def setUp(self):
+        # Turn off warnings
+        pybel.ob.obErrorLog.StopLogging()
         self.mol = pybel.readfile("mol2", "PR1739905_CF3COCF3_C1_AM1.mol2").next()
+        # Turn them back on
+        pybel.ob.obErrorLog.StartLogging()
         self.serialised = {'atoms': [{'atomicnum': 6,
             'coords': (1.3242,
                        -0.078100000000000003,
