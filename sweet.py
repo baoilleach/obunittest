@@ -199,9 +199,10 @@ if __name__ == "__main__":
         debug()
     else:
         pythonfiles = glob.glob("*.py")
+        testsuite = []
+        testloader = unittest.TestLoader().loadTestsFromTestCase
         for pythonfile in pythonfiles:
             if pythonfile not in ["sweet.py", "__init__.py"]:
                 testcase = importName(pythonfile.split(".")[0], "TestCase")
-                print "\nTesting",pythonfile
-                suite = unittest.TestLoader().loadTestsFromTestCase(testcase)
-                unittest.TextTestRunner(verbosity=0).run(suite)
+                testsuite.append(testloader(testcase))
+        unittest.TextTestRunner(verbosity=0).run(unittest.TestSuite(testsuite))
