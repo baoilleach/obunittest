@@ -6,11 +6,11 @@ import sweet
 class TestCase(sweet.TestCase):
     """Regression Test for PR1739905
 
-    CF3COCF3_C1_AM1.mol2 is a GaussView MOL2 file missing atom types
+    The supplied mol2 file is a GaussView MOL2 file missing atom types
     When read, OB was converting the carbonyl O to a H
     """
     def setUp(self):
-        self.mol = pybel.readfile("mol2", "CF3COCF3_C1_AM1.mol2").next()
+        self.mol = pybel.readfile("mol2", "PR1739905_CF3COCF3_C1_AM1.mol2").next()
         self.serialised = {'atoms': [{'atomicnum': 6,
             'coords': (1.3242,
                        -0.078100000000000003,

@@ -6,13 +6,13 @@ import sweet
 class TestCase(sweet.TestCase):
     """Regression Test for PR2680300
 
-    557418.mol, when read from PDB has a
+    The supplied mol file, when read from PDB has a
        C(OH)(=O)
     changed to
        C(OH)(=[O-])
     """
     def setUp(self):
-        self.mol = pybel.readfile("mol", "557418.mol").next()
+        self.mol = pybel.readfile("mol", "PR2680300_557418.mol").next()
         self.serialised = {'atoms': [{'atomicnum': 17,
             'coords': (1.4301999999999999,
                        -2.1953999999999998,
