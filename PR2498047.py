@@ -221,5 +221,5 @@ class TestCase(sweet.TestCase):
         self.assertEqual(can, can_fromcan)
     def testSecondMol(self):
         smi = "[C@@]123[C@@H](C3)CNC1=CC(=O)c1c2c(c[nH]1)C"
-        can_fromsmi = pybel.readstring("can", can).write("can").split()[0]
+        can_fromsmi = pybel.readstring("can", smi).write("can").split()[0]
         # ASSERT NO SEGFAULT :-)
