@@ -10,16 +10,19 @@ How to download
 
 One way is to click the download button at http://github.com/baoilleach/obunittest/tree/master.
 
-A better way is to install Git. On Windows, you can install Git under Cygwin. Then use the following command:
+A better way is to install Git. On Windows, you can install Git under Cygwin. Then use the following command::
    git clone git://github.com/baoilleach/obunittest.git
+
 With Git, you can stay up to the date with the latest version by just typing "git fetch".
 
 How to run
 ==========
 
-To run all tests:   python sweet.py
+To run all tests::
+   python sweet.py
 
-To run one test:    python sweet.py PR1733905.py
+To run one test::
+   python sweet.py PR1733905.py
 
 How to add a test
 =================
@@ -40,7 +43,7 @@ From the point of view of maintaining tests, a good test should not rely on anyt
 How to serialise a molecule
 ===========================
 
-Given a molecule in a file, you can create a serialised version using:
+Given a molecule in a file, you can create a serialised version using::
    python sweet.py serial myfile.mol
 
 Copy and paste the result into your test file to ensure that the molecule's atom types and bond orders are correctly perceived in all future OpenBabel versions. See testIdentity in PR1739905.py for an example of usage.
