@@ -14,7 +14,7 @@ A better way is to install Git. On Windows, you can install Git under Cygwin. Th
 
    git clone git://github.com/baoilleach/obunittest.git
 
-With Git, you can stay up to the date with the latest version by just typing "git fetch".
+With Git, you can stay up to the date with the latest version by just typing "git fetch", then "git pull origin master".
 
 How to run
 ----------
