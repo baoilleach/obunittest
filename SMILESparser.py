@@ -1,3 +1,4 @@
+import pdb
 import pybel
 import sweet
 
@@ -16,4 +17,20 @@ class TestCase(sweet.TestCase):
             self.assertEqual(can, can_fromsmi)
             can_fromcan = pybel.readstring("smi", can).write("can")
             self.assertEqual(can, can_fromcan)
+    def testDoubleBondStereo(self):
+        smiles = ["C/C=C/C", "C(\C)=C/C", "C/C=C(/C)", "C(=C/C)\C"]
+        mols = [sweet.Molecule(pybel.readstring("smi", smile))
+                for smile in smiles]
+        for mol in mols:
+            updown = [0, 0]
+            for bond in mol.bonds:
+                if bond.bo == 1:
+                    if bond.OBBond.IsUp():
+                        updown[0] += 1
+                    elif bond.OBBond.IsDown():
+                        updown[1] += 1
+            # Assert that these molecules are all trans
+            self.assertEqual(updown[0], 1)
+            self.assertEqual(updown[1], 1)
+                
 
