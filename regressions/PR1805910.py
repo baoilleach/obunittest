@@ -1,3 +1,4 @@
+import os
 import pybel
 import sweet
 
@@ -9,7 +10,8 @@ class TestCase(sweet.TestCase):
     """
     def setUp(self):
         self.smiles = [x.rstrip() for x in
-                       open("PR1805910_smilestestset.smi", "r").readlines()
+                       open(os.path.join("data", "PR1805910_smilestestset.smi")
+                            , "r").readlines()
                        if not x.startswith("/*")]
         self.mols = [pybel.readstring("smi", x) for x in self.smiles]
 

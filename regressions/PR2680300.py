@@ -1,6 +1,6 @@
+import os
 import pybel
 import sweet
-
 
 
 class TestCase(sweet.TestCase):
@@ -12,7 +12,8 @@ class TestCase(sweet.TestCase):
        C(OH)(=[O-])
     """
     def setUp(self):
-        self.mol = pybel.readfile("mol", "PR2680300_557418.mol").next()
+        self.mol = pybel.readfile("mol",
+                        os.path.join("data", "PR2680300_557418.mol")).next()
         self.serialised = {'atoms': [{'atomicnum': 17,
             'coords': (1.4301999999999999,
                        -2.1953999999999998,
@@ -101,6 +102,7 @@ class TestCase(sweet.TestCase):
 
     def testIdentity(self):
         self.assertSameMol(self.mol, self.serialised)
+    @sweet.unittest.expectedFailure # Unfixed bug
     def testreadfromPDB(self):
         pdb = self.mol.write("pdb")
         frompdb = pybel.readstring("pdb", pdb)

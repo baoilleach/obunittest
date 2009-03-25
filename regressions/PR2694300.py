@@ -1,3 +1,4 @@
+import os
 import pybel
 import sweet
 
@@ -12,7 +13,8 @@ class TestCase(sweet.TestCase):
     The spiro example in the bug report is dealt with in PR1805910.py
     """
     def setUp(self):
-        self.mol = pybel.readfile("mol", "PR2694300_14995.mol").next()
+        self.mol = pybel.readfile("mol",
+                         os.path.join("data", "PR2694300_14995.mol")).next()
         self.serialised = {
  'atoms': [{'atomicnum': 6,
             'coords': (1.1035999999999999,

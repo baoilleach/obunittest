@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+from __future__ import with_statement
 '''
 Python unit testing framework, based on Erich Gamma's JUnit and Kent Beck's
 Smalltalk testing framework.
@@ -364,7 +364,7 @@ class TestCase(object):
         try:
             try:
                 self.setUp()
-            except SkipTest as e:
+            except SkipTest, e:
                 result.addSkip(self, str(e))
                 return
             except Exception:
@@ -376,11 +376,11 @@ class TestCase(object):
                 testMethod()
             except self.failureException:
                 result.addFailure(self, self._exc_info())
-            except _ExpectedFailure as e:
+            except _ExpectedFailure, e:
                 result.addExpectedFailure(self, e.exc_info)
             except _UnexpectedSuccess:
                 result.addUnexpectedSuccess(self)
-            except SkipTest as e:
+            except SkipTest, e:
                 result.addSkip(self, str(e))
             except Exception:
                 result.addError(self, self._exc_info())

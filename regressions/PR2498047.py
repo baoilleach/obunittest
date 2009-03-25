@@ -1,3 +1,4 @@
+import os
 import pybel
 import sweet
 
@@ -10,7 +11,8 @@ class TestCase(sweet.TestCase):
     or a supplied smiles string caused a segfault.
     """
     def setUp(self):
-        self.mol = pybel.readfile("mol", "PR2498047_9626.mol").next()
+        self.mol = pybel.readfile("mol",
+                          os.path.join("data", "PR2498047_9626.mol")).next()
         self.serialised = {
  'atoms': [{'atomicnum': 6,
             'coords': (4.4192999999999998, -1.1955, 0.0),

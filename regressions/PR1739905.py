@@ -1,3 +1,4 @@
+import os
 import pybel
 import sweet
 
@@ -12,7 +13,8 @@ class TestCase(sweet.TestCase):
     def setUp(self):
         # Turn off warnings
         pybel.ob.obErrorLog.StopLogging()
-        self.mol = pybel.readfile("mol2", "PR1739905_CF3COCF3_C1_AM1.mol2").next()
+        self.mol = pybel.readfile("mol2",
+                        os.path.join("data", "PR1739905_CF3COCF3_C1_AM1.mol2")).next()
         # Turn them back on
         pybel.ob.obErrorLog.StartLogging()
         self.serialised = {'atoms': [{'atomicnum': 6,

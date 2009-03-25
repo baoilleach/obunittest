@@ -1,3 +1,4 @@
+import os
 import pybel
 import sweet
 
@@ -10,7 +11,8 @@ class TestCase(sweet.TestCase):
     some atom labels contain spaces (in error).
     """
     def setUp(self):
-        self.mol = pybel.readfile("mol2", "PR2691618_aa.mol2").next()
+        self.mol = pybel.readfile("mol2",
+                        os.path.join("data", "PR2691618_aa.mol2")).next()
         self.serialised = {'atoms': [{'atomicnum': 1,
             'coords': (-2.1084999999999998,
                        -0.89810000000000001,

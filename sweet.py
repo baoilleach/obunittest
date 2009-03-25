@@ -1,9 +1,11 @@
+import os
 import pdb
 import sys
 import pprint
 import pybel
 import glob
-import unittest
+# This one can mark expected failures
+import unittest_r70555 as unittest 
 
 configs = {(0, 1, 2, 3): 1,
  (0, 1, 3, 2): -1,
@@ -198,13 +200,16 @@ if __name__ == "__main__":
     elif len(sys.argv) == 2 and sys.argv[1] == "debug":
         debug()
     else:
-        pythonfiles = glob.glob("*.py")
+        pythonfiles = (glob.glob(os.path.join("regressions","*.py")) +
+                       glob.glob(os.path.join("smiles","*.py")))
+                                
         if len(sys.argv) == 2 and sys.argv[1].endswith(".py"):
             pythonfiles = [sys.argv[1]]
         testsuite = []
         testloader = unittest.TestLoader().loadTestsFromTestCase
         for pythonfile in pythonfiles:
-            if pythonfile not in ["sweet.py", "__init__.py"]:
-                testcase = importName(pythonfile.split(".")[0], "TestCase")
+            if not pythonfile.endswith("__init__.py"):
+                modulename = pythonfile.split(".")[0].replace(os.sep, ".")
+                testcase = importName(modulename, "TestCase")
                 testsuite.append(testloader(testcase))
         unittest.TextTestRunner(verbosity=0).run(unittest.TestSuite(testsuite))
