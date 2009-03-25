@@ -93,10 +93,12 @@ class TestCase(sweet.TestCase):
            {'bo': 1}]}
     def testIdentity(self):
         self.assertSameMol(self.mol, self.serialised)
+    @sweet.unittest.expectedFailure
     def testRoundTrip(self):
         mol2 = self.mol.write("mol2")
         frommol2 = pybel.readstring("mol2", mol2)
         self.assertSameMol(self.mol, frommol2)
+    @sweet.unittest.expectedFailure
     def testLabels(self):
         mol2 = self.mol.write("mol2")
         iterator = iter(mol2.split("\n"))

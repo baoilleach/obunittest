@@ -34,6 +34,7 @@ class TestCase(sweet.TestCase):
             # Assert that these molecules are all trans
             self.assertEqual(updown[0], 1)
             self.assertEqual(updown[1], 1)
+    @sweet.unittest.expectedFailure
     def testMoreDoubleBondStereo(self):
         smiles = "O=C/C=C/C=C/C"
         mol = sweet.Molecule(pybel.readstring("smi", smiles))
