@@ -39,22 +39,20 @@ class TestCase(sweet.TestCase):
             self.assertEqual(res, [UP, DOWN, NONE, DOWN, UP])
         else:
             self.assertEqual(res, [DOWN, UP, NONE, UP, DOWN])            
-    @sweet.unittest.skip
     def testDoubleBondStereo(self):
         smiles = ["C/C=C/C", "C(\C)=C/C", "C/C=C(/C)", "C(=C/C)\C"]
-        mols = [sweet.Molecule(pybel.readstring("smi", smile))
-                for smile in smiles]
+        mols = [pybel.readstring("smi", smile) for smile in smiles]
         for mol in mols:
             updown = [0, 0]
-            for bond in mol.bonds:
-                if bond.bo == 1:
-                    if bond.OBBond.IsUp():
+            for i in range(mol.OBMol.NumBonds()):
+                bond = mol.OBMol.GetBond(i)
+                if bond.GetBO() == 1:
+                    if bond.IsUp():
                         updown[0] += 1
-                    elif bond.OBBond.IsDown():
+                    elif bond.IsDown():
                         updown[1] += 1
             # Assert that these molecules are all trans
-            self.assertEqual(updown[0], 1)
-            self.assertEqual(updown[1], 1)
+            self.assertEqual(updown, [1,1])
     #@sweet.unittest.expectedFailure
     @sweet.unittest.skip
     def testMoreDoubleBondStereo(self):
