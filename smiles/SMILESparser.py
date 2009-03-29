@@ -12,7 +12,6 @@ class TestCase(sweet.TestCase):
         filenames = ["SMILESparser_7553.mol", "SMILESparser_11646.mol"]
         self.mols = [pybel.readfile("mol", os.path.join("data", x))
                           .next() for x in filenames]
-    @sweet.unittest.skip
     def testAtom4Refs(self):
         for mol in self.mols:
             can = mol.write("can")
@@ -53,16 +52,14 @@ class TestCase(sweet.TestCase):
                         updown[1] += 1
             # Assert that these molecules are all trans
             self.assertEqual(updown, [1,1])
-    #@sweet.unittest.expectedFailure
-    @sweet.unittest.skip
     def testMoreDoubleBondStereo(self):
         smiles = "O=C/C=C/C=C/C"
-        mol = sweet.Molecule(pybel.readstring("smi", smiles))
-        configs = [bond.OBBond.IsUp() for bond in mol.bonds
-                   if bond.bo == 1]
+        mol = pybel.readstring("smi", smiles).OBMol
+        configs = [mol.GetBond(i).IsUp() for i in range(mol.NumBonds())
+                   if mol.GetBond(i).GetBO() == 1]
         # For a trans molecule, configs should be either
         # [False, True, False] or [True, False, True]
-        if configs[0]==0:
+        if configs[0]==False:
             self.assertEqual(configs, [False, True, False])
         else:
             self.assertEqual(configs, [True, False, True])
