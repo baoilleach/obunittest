@@ -20,6 +20,7 @@ class TestCase(sweet.TestCase):
             self.assertEqual(can, can_fromsmi)
             can_fromcan = pybel.readstring("smi", can).write("can")
             self.assertEqual(can, can_fromcan)
+            
     def testBasicStereo(self):
         smile = r'F/C(/Cl)=C(/F)\I'
         mol = pybel.readstring("smi", smile).OBMol
@@ -37,7 +38,8 @@ class TestCase(sweet.TestCase):
         if res[0]==UP:
             self.assertEqual(res, [UP, DOWN, NONE, DOWN, UP])
         else:
-            self.assertEqual(res, [DOWN, UP, NONE, UP, DOWN])            
+            self.assertEqual(res, [DOWN, UP, NONE, UP, DOWN])
+            
     def testDoubleBondStereo(self):
         smiles = ["C/C=C/C", "C(\C)=C/C", "C/C=C(/C)", "C(=C/C)\C"]
         mols = [pybel.readstring("smi", smile) for smile in smiles]
@@ -52,6 +54,7 @@ class TestCase(sweet.TestCase):
                         updown[1] += 1
             # Assert that these molecules are all trans
             self.assertEqual(updown, [1,1])
+            
     def testMoreDoubleBondStereo(self):
         smiles = "O=C/C=C/C=C/C"
         mol = pybel.readstring("smi", smiles).OBMol
@@ -63,3 +66,22 @@ class TestCase(sweet.TestCase):
             self.assertEqual(configs, [False, True, False])
         else:
             self.assertEqual(configs, [True, False, True])
+
+    def testYetAnotherDblBondStereo(self):
+        smiles = "Cl\\C(=C/F)F"
+        mol = pybel.readstring("smi", smiles).OBMol
+        NONE, UP, DOWN = range(3)
+        res = []
+        for i in range(4):
+            bond = mol.GetBond(i)
+            if bond.IsUp():
+                res.append(UP)
+            elif bond.IsDown():
+                res.append(DOWN)
+            else:
+                res.append(NONE)
+        self.assertNotEqual(res[0], NONE)
+        if res[0]==UP:
+            self.assertEqual(res, [UP, NONE, UP, DOWN])
+        else:
+            self.assertEqual(res, [DOWN, NONE, DOWN, UP])
