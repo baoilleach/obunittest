@@ -85,3 +85,10 @@ class TestCase(sweet.TestCase):
             self.assertEqual(res, [UP, NONE, UP, DOWN])
         else:
             self.assertEqual(res, [DOWN, NONE, DOWN, UP])
+
+    def testEvenMoreDoubleBondStereo(self):
+        # Don't mix up the stereo!
+        smiles = "s1c2c(n(c\\1=N\\N)C)cccc2"
+        mol = pybel.readstring("smi", smiles)
+        tosmi = mol.write("smi").split()[0]
+        self.assertEqual(tosmi, "s1c2c(n(/c/1=N/N)C)cccc2")
